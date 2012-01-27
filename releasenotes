@@ -1,0 +1,14 @@
+Description:
+	An application that stores values you type. You can launch and it will run as a command, or opens a URL, or searches google if it does not find either appropriate.
+
+Example:
+	Suppose you are on a windows machine and you run the command 'gedit'. If it does not exist then it will search online. 
+
+Requires: 
+	Java v6
+
+Version: Alpha
+
+Release Date: TBA
+
+Author: Al Biheiri <abiheiri(at)gmail>
