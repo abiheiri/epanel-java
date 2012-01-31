@@ -13,5 +13,3 @@ gnome-terminal -x sh -c "ls|less"
 gnome-terminal -x sh -c "ssh sbankdb1"
 rdesktop -g 1024x768 -u administrator 10.161.2.12:3333
 explorer.exe "c:\documents and settings\"
-a
-ab

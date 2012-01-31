@@ -23,13 +23,13 @@ import javax.swing.JOptionPane;
  * @author Al Biheiri <abiheiri@gmail.com>
  */
 
-public class Main extends javax.swing.JFrame {
+public class App extends javax.swing.JFrame {
 
     /**
-     * Creates new form Main
+     * Creates new form App
      */    
     
-    public Main() {
+    public App() {
         list = new DefaultListModel();
         frame = this; //systray doesnmt know 'this' so i explicit imply
         frameIcon();
@@ -65,7 +65,7 @@ public class Main extends javax.swing.JFrame {
         mnuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ePanel v1.0.b1.02");
+        setTitle("ePanel v1.0");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -306,7 +306,7 @@ public class Main extends javax.swing.JFrame {
             in.close();
             out.close();
         }catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -389,7 +389,7 @@ public class Main extends javax.swing.JFrame {
     }     
                 
     protected static Image createImage(String path, String description) {
-        URL imageURL = Main.class.getResource(path);
+        URL imageURL = App.class.getResource(path);
         
         if (imageURL == null) {
             System.err.println("Resource not found in createImage(): " + path);
@@ -413,9 +413,9 @@ public class Main extends javax.swing.JFrame {
             java.net.URI myNewLocation = new java.net.URI(myURL);
             myNewBrowserDesktop.browse( myNewLocation );
         } catch (URISyntaxException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mnuAboutActionPerformed
    
@@ -530,13 +530,13 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -547,7 +547,7 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                new Main().setVisible(true);
+                new App().setVisible(true);
             }
         });
     }
