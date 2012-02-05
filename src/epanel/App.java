@@ -2,9 +2,7 @@ package epanel;
 
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -12,9 +10,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 
 
@@ -31,7 +27,7 @@ public class App extends javax.swing.JFrame {
     
     public App() {
         list = new DefaultListModel();
-        frame = this; //systray doesnmt know 'this' so i explicit imply
+        frame = this; //systray doesnt know 'this' so i explicit imply
         frameIcon();
         backupSavedList();
         load ();
@@ -57,15 +53,12 @@ public class App extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mnuTray = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        mnuImport = new javax.swing.JMenuItem();
-        mnuExport = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mnuQuit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ePanel v1.0");
+        setTitle("ePanel v1.0.1");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -73,6 +66,11 @@ public class App extends javax.swing.JFrame {
         });
 
         jList1.setModel(list);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
@@ -118,23 +116,6 @@ public class App extends javax.swing.JFrame {
         });
         jMenu1.add(mnuTray);
         jMenu1.add(jSeparator1);
-
-        mnuImport.setText("Import");
-        mnuImport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuImportActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuImport);
-
-        mnuExport.setText("Export");
-        mnuExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuExportActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuExport);
-        jMenu1.add(jSeparator2);
 
         mnuQuit.setText("Exit");
         mnuQuit.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +178,7 @@ public class App extends javax.swing.JFrame {
     
         
     private DefaultListModel list;
-    public javax.swing.JFrame frame; //stupidy used for systray   
+    public javax.swing.JFrame frame; //stupidity used for systray   
     
     // <editor-fold defaultstate="collapsed" desc="functions">
     private void frameIcon () {
@@ -255,6 +236,37 @@ public class App extends javax.swing.JFrame {
         list.addElement(text);
         save ();
     }
+    
+    private void doAction () {
+            String text = txtGo.getText();
+        
+        try {
+                Runtime rt = Runtime.getRuntime();
+                //Process pr = rt.exec("cmd /c dir");
+                Process pr = rt.exec(text); 
+                BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream())); 
+                String line; 
+                while((line=input.readLine()) != null) {
+                    System.out.println(line);
+                }
+ 
+            } catch(Exception e) {
+                try {                    
+                    String myURL = text;
+                    java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
+                    java.net.URI myNewLocation = new java.net.URI(myURL);            
+                    myNewBrowserDesktop.browse( myNewLocation );
+                } 
+                catch (URISyntaxException ex) {            
+                    searchOnline ();
+                } 
+                catch (IOException ex) {            
+                    searchOnline ();                                      
+
+                }                   
+            }    
+    }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Save/Load/Copy">
@@ -316,38 +328,20 @@ public class App extends javax.swing.JFrame {
     private void createTray() {
         //Check the SystemTray support
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
+            System.out.println("Shucks creating a system tray is not possible");
             return;
         }
         final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
                 new TrayIcon(createImage("img/man.png", "tray icon"));
         final SystemTray tray = SystemTray.getSystemTray();
-        
-        // Create a popup menu components
-        
+                
         MenuItem restoreForm = new MenuItem("Show");
-        //CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
-        //CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
-        //Menu displayMenu = new Menu("Display");
-        //MenuItem errorItem = new MenuItem("Error");
-        //MenuItem warningItem = new MenuItem("Warning");
-        //MenuItem infoItem = new MenuItem("Info");
-        //MenuItem noneItem = new MenuItem("None");
         MenuItem exitItem = new MenuItem("Exit");
         
         //Add components to popup menu
         popup.add(restoreForm);
-        //popup.add(aboutItem);
-        //popup.addSeparator();
-        //popup.add(cb1);
-        //popup.add(cb2);
         popup.addSeparator();
-        //popup.add(displayMenu);
-        //displayMenu.add(errorItem);
-        //displayMenu.add(warningItem);
-        //displayMenu.add(infoItem);
-        //displayMenu.add(noneItem);
         popup.add(exitItem);
         
         trayIcon.setPopupMenu(popup);
@@ -399,12 +393,7 @@ public class App extends javax.swing.JFrame {
         }
     }
    
-    // </editor-fold>
-    
-    private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuQuitActionPerformed
-        save (); //needed eventhough there is an OnClosing event
-        System.exit(0);
-    }//GEN-LAST:event_mnuQuitActionPerformed
+  // </editor-fold>
     
     private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
           try {
@@ -420,33 +409,7 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuAboutActionPerformed
    
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        String text = txtGo.getText();
-        
-        try {
-                Runtime rt = Runtime.getRuntime();
-                //Process pr = rt.exec("cmd /c dir");
-                Process pr = rt.exec(text); 
-                BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream())); 
-                String line; 
-                while((line=input.readLine()) != null) {
-                    System.out.println(line);
-                }
- 
-            } catch(Exception e) {
-                try {                    
-                    String myURL = text;
-                    java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
-                    java.net.URI myNewLocation = new java.net.URI(myURL);            
-                    myNewBrowserDesktop.browse( myNewLocation );
-                } 
-                catch (URISyntaxException ex) {            
-                    searchOnline ();
-                } 
-                catch (IOException ex) {            
-                    searchOnline ();                                      
-
-                }                   
-            }
+        doAction();
     }//GEN-LAST:event_btnGoActionPerformed
        
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -483,15 +446,6 @@ public class App extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jList1ValueChanged
 
-    private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportActionPerformed
-        load ();
-    }//GEN-LAST:event_mnuImportActionPerformed
-
-    private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
-        save ();
-        JOptionPane.showMessageDialog(null, "Data exported as epanel-list.txt" + "\n" + "\n" + "You will find it in same location as this application.");
-    }//GEN-LAST:event_mnuExportActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         save ();
     }//GEN-LAST:event_formWindowClosing
@@ -503,11 +457,26 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtGoKeyPressed
 
+    // </editor-fold>//GEN-FIRST:event_mnuQuitActionPerformed
+    private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-HEADEREND:event_mnuQuitActionPerformed
+        save(); //needed eventhough there is an OnClosing event
+        System.exit(0);
+    }//GEN-LAST:event_mnuQuitActionPerformed
+
     private void mnuTrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTrayActionPerformed
         this.setVisible(false);
         createTray();
     }//GEN-LAST:event_mnuTrayActionPerformed
-    
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+   
+        if(evt.getClickCount() == 2){
+            doAction();
+        }
+        
+    }//GEN-LAST:event_jList1MouseClicked
+
+      
     
     /**
      * @param args the command line arguments
@@ -551,6 +520,7 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnGo;
@@ -561,10 +531,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem mnuAbout;
-    private javax.swing.JMenuItem mnuExport;
-    private javax.swing.JMenuItem mnuImport;
     private javax.swing.JMenuItem mnuQuit;
     private javax.swing.JMenuItem mnuTray;
     private javax.swing.JTextField txtGo;

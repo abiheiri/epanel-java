@@ -7,8 +7,12 @@ Example:
 Requires: 
 	Java v6
 
-Version: Alpha
-
-Release Date: TBA
-
 Author: Al Biheiri <abiheiri(at)gmail>
+
+
+ChangeLog:
+
+v1.0.1
+----------
+double click does same as launch button now
+removed import export from menu. It is useless as epanel auto saves anyway
