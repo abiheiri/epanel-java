@@ -2,7 +2,9 @@ package epanel;
 
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -10,7 +12,10 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 
 
@@ -30,8 +35,8 @@ public class App extends javax.swing.JFrame {
         frame = this; //systray doesnt know 'this' so i explicit imply
         frameIcon();
         backupSavedList();
+        initComponents();
         load ();
-        initComponents();      
     }
 
     /**
@@ -43,12 +48,17 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        txtGo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        txtGo = new javax.swing.JTextField();
-        btnGo = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnGo = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNotes = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuTray = new javax.swing.JMenuItem();
@@ -58,12 +68,25 @@ public class App extends javax.swing.JFrame {
         mnuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ePanel v1.0.1");
+        setTitle("ePanel v1.2");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+
+        jTabbedPane2.setMaximumSize(null);
+
+        jPanel1.setMaximumSize(null);
+
+        txtGo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtGo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtGoKeyPressed(evt);
+            }
+        });
+
+        jScrollPane1.setMaximumSize(null);
 
         jList1.setModel(list);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,20 +101,6 @@ public class App extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        txtGo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtGo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtGoKeyPressed(evt);
-            }
-        });
-
-        btnGo.setText("Launch");
-        btnGo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGoActionPerformed(evt);
-            }
-        });
-
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +114,65 @@ public class App extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
+
+        btnGo.setText("Launch");
+        btnGo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addComponent(txtGo)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemove)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(btnGo)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(btnRemove)
+                    .addComponent(btnGo)))
+        );
+
+        jTabbedPane2.addTab("panel", jPanel1);
+
+        jPanel2.setMaximumSize(null);
+
+        txtNotes.setColumns(20);
+        txtNotes.setRows(5);
+        jScrollPane2.setViewportView(txtNotes);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("notes", jPanel2);
 
         jMenu1.setText("File");
 
@@ -145,32 +213,11 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRemove)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGo))
-                    .addComponent(txtGo)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnRemove)
-                    .addComponent(btnGo))
-                .addContainerGap())
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -284,9 +331,22 @@ public class App extends javax.swing.JFrame {
         } catch(IOException e) {  
             JOptionPane.showMessageDialog(null, "error: " + e.getMessage());  
         }  
+        
+        String notes = txtNotes.getText();
+        try {  
+            BufferedWriter bw = new BufferedWriter(  
+                                new OutputStreamWriter(  
+                                new FileOutputStream("epanel-notes.txt")));   
+                bw.write(notes);    
+            bw.close();
+        } catch(IOException e) {  
+            JOptionPane.showMessageDialog(null, "error: " + e.getMessage());  
+        }  
+        
     } 
     
     private void load () {
+
         try {  
             BufferedReader br = new BufferedReader(  
                                 new InputStreamReader(  
@@ -301,8 +361,30 @@ public class App extends javax.swing.JFrame {
             }  
             br.close();  
         } catch(IOException e) {  
-            JOptionPane.showMessageDialog(null, "error: " + e.getMessage());  
-        }   
+            //JOptionPane.showMessageDialog(null, "error: " + e.getMessage());  
+        }
+
+        
+        try {  
+            BufferedReader br = new BufferedReader(  
+                                new InputStreamReader(  
+                                new FileInputStream("epanel-notes.txt")));  
+            String line;
+            String result = "";
+            
+            while((line = br.readLine()) != null) { 
+                //System.out.print(line + "\n");
+                result += line + "\n";
+                
+            }  
+            
+            txtNotes.setText(result);
+            br.close();  
+            
+        } catch(IOException e) {  
+            //JOptionPane.showMessageDialog(null, "error: " + e.getMessage());  
+        }
+        
     }
     
     private void backupSavedList () {  //makes a backup of listfile on init          
@@ -318,7 +400,7 @@ public class App extends javax.swing.JFrame {
             in.close();
             out.close();
         }catch (IOException ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -393,10 +475,10 @@ public class App extends javax.swing.JFrame {
         }
     }
    
-  // </editor-fold>
+
     
     private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
-          try {
+        try {
             String myURL = "http://goo.gl/I7KuD";
             java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
             java.net.URI myNewLocation = new java.net.URI(myURL);
@@ -407,7 +489,8 @@ public class App extends javax.swing.JFrame {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mnuAboutActionPerformed
-   
+     // </editor-fold>
+    
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
         doAction();
     }//GEN-LAST:event_btnGoActionPerformed
@@ -457,11 +540,10 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtGoKeyPressed
 
-    // </editor-fold>//GEN-FIRST:event_mnuQuitActionPerformed
-    private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-HEADEREND:event_mnuQuitActionPerformed
+    private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {                                            
         save(); //needed eventhough there is an OnClosing event
         System.exit(0);
-    }//GEN-LAST:event_mnuQuitActionPerformed
+    }                                       
 
     private void mnuTrayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTrayActionPerformed
         this.setVisible(false);
@@ -469,11 +551,9 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuTrayActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-   
         if(evt.getClickCount() == 2){
             doAction();
-        }
-        
+        }       
     }//GEN-LAST:event_jList1MouseClicked
 
       
@@ -483,7 +563,7 @@ public class App extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /*
-         * Set the Nimbus look and fe   el
+         * Set the Nimbus look and feel
          */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*
@@ -529,11 +609,16 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuQuit;
     private javax.swing.JMenuItem mnuTray;
     private javax.swing.JTextField txtGo;
+    private javax.swing.JTextArea txtNotes;
     // End of variables declaration//GEN-END:variables
 }

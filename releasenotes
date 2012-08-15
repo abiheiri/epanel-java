@@ -16,3 +16,5 @@ v1.0.1
 ----------
 double click does same as launch button now
 removed import export from menu. It is useless as epanel auto saves anyway
+removed error message when trying to load epanel-list.txt and it is missing on first startup.
+created mac specific version
