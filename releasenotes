@@ -12,6 +12,12 @@ Author: Al Biheiri <abiheiri(at)gmail>
 
 ChangeLog:
 
+v1.2
+------
+added notes section
+mac specific - saved files are now inside the epanel.app ( epanel.app/Contents/Resources/Java/ )
+
+
 v1.0.1
 ----------
 double click does same as launch button now
