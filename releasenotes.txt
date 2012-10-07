@@ -1,0 +1,48 @@
+Description:
+ An application that stores values you type into it. 
+        The values save can be commands you would normally type in a terminal or command prompt, they can be folder paths, simple search terms that you would save to search online, or even URLs.
+        When you click the launch button it will run as a command, or opens a URL, or searches google if it does not find either appropriate.
+
+Example:
+ Suppose you are on a windows machine and you run the command 'gedit'. If it does not exist then it will search online.
+        To open a folder in Linux (gnome interface) you add "nautilus /foldername"
+        To open a folder in Mac you add "open /Foldername"
+        To open a folder in Windows you add "explorer.exe c:\foldername"
+
+Requires: Java v6 or higher (1.6+)
+Version: 1.3
+Release date: 
+                    v1.0    =01/30/2012
+                    v1.01   =02/05/2012
+                    v1.2    =08/14/2012
+		    v1.3    =10/07/2012
+
+Author: Al Biheiri <abiheiri(at)gmail>
+http://www.forgottheaddress.blospot.com
+
+
+
+ChangeLog:
+
+v1.3
+----------
+-DONE-Add copy paste context menus
+-DONE-Add save option in menu
+-FIXED-Hide shortcut (alt+h) is a force reboot on Debian
+-FIXED-default exit (X) button doesn't save content 
+
+v1.2
+----------
+added notes section
+mac version saves notes and lists internally now, so you don't have scattered files everywhere. (epanel.app/Contents/Resources/Java/)
+
+v1.01
+----------
+double click does same as launch button now
+removed import export from menu. It is useless as epanel auto saves anyway
+removed error message when trying to load epanel-list.txt and it is missing on first startup.
+created mac specific version so the dock and menubar looks pretty!
+
+v1.0
+---------
+first!

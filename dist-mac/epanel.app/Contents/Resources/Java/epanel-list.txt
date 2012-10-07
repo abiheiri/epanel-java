@@ -1,0 +1,11 @@
+http://forgottheaddress.blogspot.com
+notepad.exe
+gedit
+gnome-terminal
+https://rhn.redhat.com/rhn/systems/Overview.do
+http://www.google.com
+open /Applications/Safari.app
+nautilus /mnt
+spaces will not fail
+rdesktop -g 1024x768 -u administrator 10.161.2.12:3333
+explorer.exe "c:\documents and settings\"

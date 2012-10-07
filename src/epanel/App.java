@@ -61,15 +61,21 @@ public class App extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuTray = new javax.swing.JMenuItem();
+        mnuSave = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuQuit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        mnuCut = new javax.swing.JMenuItem();
+        mnuCopy = new javax.swing.JMenuItem();
+        mnuPaste = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        mnuSelectAll = new javax.swing.JMenuItem();
         chkWrap = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ePanel v1.2");
+        setTitle("ePanel v1.3");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -80,6 +86,7 @@ public class App extends javax.swing.JFrame {
 
         jPanel1.setMaximumSize(null);
 
+        txtGo.setComponentPopupMenu(jMenu3.getPopupMenu());
         txtGo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtGo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -136,7 +143,7 @@ public class App extends javax.swing.JFrame {
                         .addComponent(btnAdd)
                         .addGap(18, 18, 18)
                         .addComponent(btnRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                         .addComponent(btnGo)))
                 .addContainerGap())
         );
@@ -146,7 +153,7 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txtGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
@@ -160,6 +167,7 @@ public class App extends javax.swing.JFrame {
 
         txtNotes.setColumns(20);
         txtNotes.setRows(5);
+        txtNotes.setComponentPopupMenu(jMenu3.getPopupMenu());
         jScrollPane2.setViewportView(txtNotes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -177,7 +185,7 @@ public class App extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        mnuTray.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK));
+        mnuTray.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mnuTray.setText("Hide to tray");
         mnuTray.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,6 +193,14 @@ public class App extends javax.swing.JFrame {
             }
         });
         jMenu1.add(mnuTray);
+
+        mnuSave.setText("Save");
+        mnuSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSaveActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuSave);
         jMenu1.add(jSeparator1);
 
         mnuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -199,6 +215,39 @@ public class App extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Edit");
+
+        mnuCut.setText("Cut");
+        mnuCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCutActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuCut);
+
+        mnuCopy.setText("Copy");
+        mnuCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCopyActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuCopy);
+
+        mnuPaste.setText("Paste");
+        mnuPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPasteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuPaste);
+        jMenu3.add(jSeparator2);
+
+        mnuSelectAll.setText("Select All...");
+        mnuSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSelectAllActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuSelectAll);
 
         chkWrap.setText("Line Wrap (notes)");
         chkWrap.addActionListener(new java.awt.event.ActionListener() {
@@ -579,6 +628,59 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chkWrapActionPerformed
 
+    private void mnuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSaveActionPerformed
+        save ();
+        JOptionPane.showMessageDialog(null, "Data saved");  
+    }//GEN-LAST:event_mnuSaveActionPerformed
+
+    private void mnuCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCopyActionPerformed
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_C);
+            robot.keyRelease( KeyEvent.VK_C );
+            robot.keyRelease( KeyEvent.VK_CONTROL );
+        } catch (AWTException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuCopyActionPerformed
+
+    private void mnuPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPasteActionPerformed
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease( KeyEvent.VK_V );
+            robot.keyRelease( KeyEvent.VK_CONTROL );
+        } catch (AWTException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuPasteActionPerformed
+
+    private void mnuSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSelectAllActionPerformed
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_A);
+            robot.keyRelease( KeyEvent.VK_A );
+            robot.keyRelease( KeyEvent.VK_CONTROL );
+        } catch (AWTException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuSelectAllActionPerformed
+
+    private void mnuCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCutActionPerformed
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_X);
+            robot.keyRelease( KeyEvent.VK_X );
+            robot.keyRelease( KeyEvent.VK_CONTROL );
+        } catch (AWTException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuCutActionPerformed
+
       
     
     /**
@@ -639,9 +741,15 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JMenuItem mnuAbout;
+    private javax.swing.JMenuItem mnuCopy;
+    private javax.swing.JMenuItem mnuCut;
+    private javax.swing.JMenuItem mnuPaste;
     private javax.swing.JMenuItem mnuQuit;
+    private javax.swing.JMenuItem mnuSave;
+    private javax.swing.JMenuItem mnuSelectAll;
     private javax.swing.JMenuItem mnuTray;
     private javax.swing.JTextField txtGo;
     private javax.swing.JTextArea txtNotes;
