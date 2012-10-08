@@ -75,7 +75,7 @@ public class App extends javax.swing.JFrame {
         mnuAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ePanel v1.3");
+        setTitle("ePanel v1.3.1");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -178,7 +178,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("notes", jPanel2);
@@ -294,7 +294,7 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="functions">
     private void frameIcon () {
         try{ 
-            InputStream imgStream = this.getClass().getResourceAsStream("img/man.png"); 
+            InputStream imgStream = this.getClass().getResourceAsStream("img/paste.png"); 
             BufferedImage bi = ImageIO.read(imgStream); 
             ImageIcon myImg = new ImageIcon(bi); 
             this.setIconImage(myImg.getImage());      
@@ -479,7 +479,7 @@ public class App extends javax.swing.JFrame {
         }
         final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("img/man.png", "tray icon"));
+                new TrayIcon(createImage("img/paste.png", "tray icon"));
         final SystemTray tray = SystemTray.getSystemTray();
                 
         MenuItem restoreForm = new MenuItem("Show");
