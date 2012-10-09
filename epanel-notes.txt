@@ -1,3 +1,4 @@
 The notes and panel auto save when you exit.
 
 Did you know there is line wrap?? Try it out---------------------------------------------------------------
+

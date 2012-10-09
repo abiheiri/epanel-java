@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.undo.UndoManager;
 
 
 
@@ -32,10 +33,12 @@ public class App extends javax.swing.JFrame {
     public App() {
         list = new DefaultListModel();
         frame = this; //systray doesnt know 'this' so i explicit imply
+        um = new UndoManager();
         frameIcon();
         backupSavedList();
         initComponents();
         load ();
+        txtNotes.getDocument().addUndoableEditListener(um);
     }
 
     /**
@@ -69,6 +72,9 @@ public class App extends javax.swing.JFrame {
         mnuCut = new javax.swing.JMenuItem();
         mnuCopy = new javax.swing.JMenuItem();
         mnuPaste = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        mnuUndo = new javax.swing.JMenuItem();
+        mnuRedo = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mnuSelectAll = new javax.swing.JMenuItem();
         chkWrap = new javax.swing.JCheckBoxMenuItem();
@@ -154,7 +160,7 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txtGo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
@@ -179,7 +185,7 @@ public class App extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("notes", jPanel2);
@@ -240,6 +246,25 @@ public class App extends javax.swing.JFrame {
             }
         });
         jMenu3.add(mnuPaste);
+        jMenu3.add(jSeparator3);
+
+        mnuUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        mnuUndo.setText("Undo");
+        mnuUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuUndoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuUndo);
+
+        mnuRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        mnuRedo.setText("Redo");
+        mnuRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRedoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuRedo);
         jMenu3.add(jSeparator2);
 
         mnuSelectAll.setText("Select All...");
@@ -290,8 +315,9 @@ public class App extends javax.swing.JFrame {
     
         
     private DefaultListModel list;
-    public javax.swing.JFrame frame; //stupidity used for systray   
-    
+    public javax.swing.JFrame frame; //stupidity used for systray
+    UndoManager um;
+       
     // <editor-fold defaultstate="collapsed" desc="functions">
     private void frameIcon () {
         try{ 
@@ -682,6 +708,18 @@ public class App extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuCutActionPerformed
 
+    private void mnuUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUndoActionPerformed
+        if (um.canUndo()) {
+          um.undo();
+        }
+    }//GEN-LAST:event_mnuUndoActionPerformed
+
+    private void mnuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRedoActionPerformed
+        if (um.canRedo()) {
+          um.redo();
+        }
+    }//GEN-LAST:event_mnuRedoActionPerformed
+
       
     
     /**
@@ -743,15 +781,18 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuCopy;
     private javax.swing.JMenuItem mnuCut;
     private javax.swing.JMenuItem mnuPaste;
     private javax.swing.JMenuItem mnuQuit;
+    private javax.swing.JMenuItem mnuRedo;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSelectAll;
     private javax.swing.JMenuItem mnuTray;
+    private javax.swing.JMenuItem mnuUndo;
     private javax.swing.JTextField txtGo;
     private javax.swing.JTextArea txtNotes;
     // End of variables declaration//GEN-END:variables
