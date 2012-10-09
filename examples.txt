@@ -1,0 +1,5 @@
+loading and saving
+http://www.coderanch.com/t/344337/GUI/java/Loading-Saving-Listbox
+
+undomanager
+http://www.java2s.com/Code/Java/Swing-JFC/SimpleGUIdemoofUndoManagerandfriends.htm
