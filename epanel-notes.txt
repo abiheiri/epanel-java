@@ -1,4 +1,6 @@
-The notes and panel auto save when you exit.
+This is an example of the notes in the notes tab.
+The notes and panel tab auto save when you exit.
+
 
 Did you know there is line wrap?? Try it out---------------------------------------------------------------
 
