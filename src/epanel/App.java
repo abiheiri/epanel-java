@@ -295,7 +295,7 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="functions">
     private void frameIcon () {
         try{ 
-            InputStream imgStream = this.getClass().getResourceAsStream("img/clip.png"); 
+            InputStream imgStream = this.getClass().getResourceAsStream("img/trayicon.png"); 
             BufferedImage bi = ImageIO.read(imgStream); 
             ImageIcon myImg = new ImageIcon(bi); 
             this.setIconImage(myImg.getImage());      
@@ -480,7 +480,7 @@ public class App extends javax.swing.JFrame {
         }
         final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("img/clip.png", "tray icon"));
+                new TrayIcon(createImage("img/trayicon.png", "tray icon"));
         final SystemTray tray = SystemTray.getSystemTray();
                 
         MenuItem restoreForm = new MenuItem("Show");
