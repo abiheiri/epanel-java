@@ -10,12 +10,13 @@ Example:
         To open a folder in Windows you add "explorer.exe c:\foldername"
 
 Requires: Java v6 or higher (1.6+)
-Version: 1.3
+Version: 1.3.1
 Release date: 
-                    v1.0    =01/30/2012
-                    v1.01   =02/05/2012
-                    v1.2    =08/14/2012
-		    v1.3    =10/07/2012
+		v1.0    =01/30/2012
+		v1.01   =02/05/2012
+		v1.2    =08/14/2012
+		v1.3    =10/07/2012
+		v1.3.1  =10/09/2012
 
 Author: Al Biheiri <abiheiri(at)gmail>
 http://www.forgottheaddress.blospot.com
@@ -23,6 +24,14 @@ http://www.forgottheaddress.blospot.com
 
 
 ChangeLog:
+
+v1.3.1
+----------
+-FIXED-issue #2 -Change icon
+-FIXED-issue #3 -Add undo in notes section
+
+more info: https://github.com/abiheiri/epanel-java/issues?page=1&state=closed
+
 
 v1.3
 ----------
